@@ -1,19 +1,12 @@
-class Singleton:
-    instance = None
-    def __init__(self):
-        pass
-    clave = input("Clave: ")
-    @classmethod
-    def crearInstancia(cls):
-        if not cls.__instancia:
-            cls.__instancia = Singleton()
-        return cls.__instancia
-    def __str__(self):
-        return self.clave
-instancia1=Singleton.crearInstancia()
-instancia2=Singleton.crearInstancia()
-print("Instancia1: ", instancia1)
-print("Instancia2: ", instancia2)
-print()
-print(instancia1 is instancia2)
-
+lista_de_profesores=[['N°','ID','       Nombre',' Cant.Est.','Años expe'],
+                    [1,112340981,'Jose \t\t',      3,15],
+                    [2,114560981,'Julio \t\t  ',2,5],
+                    [3,113450876,'Axel \t\t   ',6,6],
+                    [4,111230567,'Jessica \t',5,10],
+                    [5,113450967,'Ernesto\t\t',4,8]]
+b=''
+for i in range(6):
+    for j in range(5):
+        b+=str(lista_de_profesores[i][j])+'\t'
+    print (b)
+    b=''
