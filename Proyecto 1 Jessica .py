@@ -1,4 +1,3 @@
-
 import os
 listaIntegrantes=[]
 
@@ -85,48 +84,49 @@ def salir():
     exit()
 
 def main():
-    while True:
-        os.system('cls' if os.name == 'nt' else'clear')
-        # Bienvenida a los profesores de la Banda Municipal de Acosta
-        print("____________________________________________________________________________")
-        print("Bienvenido estimado profesor de la Banda Municipal de Acosta")
-        print("____________________________________________________________________________")
-        print("")
-        # Lista de profesores autorizados para editar la lista
-        profesores_encargados = ["Jose", "Julio", "Axel", "Jessica", "Ernesto"]
-        nombre = input("Estimado profesor por favor ingrese su nombre: ")
-        if nombre in profesores_encargados:
-            print("Usted está autorizado a editar, ya que se encuentra en la siguiente lista: ")
-        else:
-            print("Usted no está autorizado a editar, ya que no se encuentra en la siguiente lista: ")
 
-        # Lista de profesores en una matriz que es recorrida mediante un for y se imprimen los datos.
-        lista_de_profesores = [['N°', 'ID', '       Nombre', ' Cant.Est.', 'Años expe'],
-                               [1, 112340981, 'Jose \t\t', 3, 15],
-                               [2, 114560981, 'Julio \t\t  ', 2, 5],
-                               [3, 113450876, 'Axel \t\t   ', 6, 6],
-                               [4, 111230567, 'Jessica \t', 5, 10],
-                               [5, 113450967, 'Ernesto\t\t', 4, 8]]
+    os.system('cls' if os.name == 'nt' else'clear')
+    # Bienvenida a los profesores de la Banda Municipal de Acosta
+    print("____________________________________________________________________________")
+    print("Bienvenido estimado profesor de la Banda Municipal de Acosta")
+    print("____________________________________________________________________________")
+    print("")
+    # Lista de profesores autorizados para editar la lista
+    profesores_encargados = ["Jose", "Julio", "Axel", "Jessica", "Ernesto"]
+    nombre = input("Estimado profesor por favor ingrese su nombre: ")
+    if nombre in profesores_encargados:
+        print("Usted está autorizado a editar, ya que se encuentra en la siguiente lista: ")
+    else:
+        print("Usted no está autorizado a editar, ya que no se encuentra en la siguiente lista: ")
+
+    # Lista de profesores en una matriz que es recorrida mediante un for y se imprimen los datos.
+    lista_de_profesores = [['N°', 'ID', '       Nombre', ' Cant.Est.', 'Años expe'],
+                           [1, 112340981, 'Jose \t\t', 3, 15],
+                           [2, 114560981, 'Julio \t\t  ', 2, 5],
+                           [3, 113450876, 'Axel \t\t   ', 6, 6],
+                           [4, 111230567, 'Jessica \t', 5, 10],
+                           [5, 113450967, 'Ernesto\t\t', 4, 8]]
+    b = ''
+    for i in range(6):
+        for j in range(5):
+            b += str(lista_de_profesores[i][j]) + '\t'
+        print(b)
         b = ''
-        for i in range(6):
-            for j in range(5):
-                b += str(lista_de_profesores[i][j]) + '\t'
-            print(b)
-            b = ''
-        os.system('cls' if os.name == 'nt' else'clear')
-        # A continuación se brinda el total de estudiantes que le corresponde a cada profesor.
-        # La lista primero está desordena según la cantidad, luego se ordena de menor a mayor cantidad.
+    os.system('cls' if os.name == 'nt' else'clear')
+    # A continuación se brinda el total de estudiantes que le corresponde a cada profesor.
+    # La lista primero está desordena según la cantidad, luego se ordena de menor a mayor cantidad.
 
-        print("A continuacion se indica la cantidad de estudiantes que deben ingresar")
-        profes = [
-            ('Jose', 3, 'Saxofon'),
-            ('Julio', 2, 'Trompeta'),
-            ('Axel', 6, 'Clarinete'),
-            ('Jessica', 5, 'Trombon'),
-            ('Ernesto', 4, 'Tuba')
-        ]
-        print(sorted(profes, key=lambda profe: profe[1]))
-        os.system('cls' if os.name == 'nt' else 'clear')
+    print("A continuacion se indica la cantidad de estudiantes que deben ingresar")
+    profes = [
+        ('Jose', 3, 'Saxofon'),
+        ('Julio', 2, 'Trompeta'),
+        ('Axel', 6, 'Clarinete'),
+        ('Jessica', 5, 'Trombon'),
+        ('Ernesto', 4, 'Tuba')
+    ]
+    print(sorted(profes, key=lambda profe: profe[1]))
+    os.system('cls' if os.name == 'nt' else 'clear')
+    while True:
         print("A continuacion se le solicita que ingrese algunos datos de los estudiantes")
         print("Por favor selecciona alguna de las siguientes opciones")
         print("\n")
@@ -156,7 +156,9 @@ def main():
             consultarHistorial()
         elif opcion == 6:
             salir()
-
+        i = input("\nDesea volver al menu principal s/n: ")
+        if i == 'n' or i == 'N':
+            break
 
 
 if __name__ == "__main__":
