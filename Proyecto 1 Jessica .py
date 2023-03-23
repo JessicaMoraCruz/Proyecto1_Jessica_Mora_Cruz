@@ -1,5 +1,6 @@
 import random
 import os
+# Se utiliza el metodo Abstract Factory para que los usuarios visualicen informacion de cursos que da la Banda.
 class InformacionBandaMunicipalAcosta:
 
     def __init__(self, BMA_cursos=None):
@@ -44,14 +45,16 @@ def programa_aleatorio():
     """ Se brindara informacion aleatoria para los usuarios"""
     return random.choice([Basicos, Medios, Premium])()
 
+# Aqui es donde se va a guardar los datos de los integrantes, por el momento esta vacia
 listaIntegrantes=[]
 
-
+# Se define la clase Integrante junto con sus parametros y 5 metodos donde se solicita datos y se realizan calculos
 class Integrantes:
-    def __init__(self, _cedula, _nombre, _apellido, _edad, _mensualidad1, _mensualidad2, _mensualidad3):
+    def __init__(self, _cedula, _nombre, _apellido, _instrumento, _edad, _mensualidad1, _mensualidad2, _mensualidad3):
         self.cedula = _cedula
         self.nombre = _nombre
         self.apellido = _apellido
+        self.instrumento = _instrumento
         self.edad = _edad
         self.mensualidad1 = _mensualidad1
         self.mensualidad2 = _mensualidad2
@@ -60,11 +63,12 @@ class Integrantes:
         # A continuacion se calcula el monto que le va a corresponder a cada profesor
         # por las mensualidades pagadas por este estudiante
         self.montoProfesor = (_mensualidad1 + _mensualidad2 + _mensualidad3) / 5
+        # Aqui es donde se va a guardar todos los datos que se ingresan a traves del menu
         self.historial = []
-
-    def entregarDatos(self):
-        print("No. Cedula: {} - {} {} - Mensualidad Final: {} - Monto a Profesor: {}".format(self.cedula, self.nombre, self.apellido, self.mensualidadFinal, self.montoProfesor))
-
+        # Se utiliza la funcion format para indicar el orden de impresion junto con la ayuda de las {} llaves
+    def imprimirDatos(self):
+        print("No. Cedula: {} - {} {} {} - Mensualidad Final: {} - Monto a Profesor: {}".format(self.cedula, self.nombre, self.apellido, self.instrumento, self.mensualidadFinal, self.montoProfesor))
+    # Se solicitan datos de las mensualidades
     def editarMensualidad(self, _mensualidad1, _mensualidad2, _mensualidad3):
         self.mensualidad1 = _mensualidad1
         self.mensualidad2 = _mensualidad2
@@ -72,30 +76,31 @@ class Integrantes:
         self.mensualidadFinal = (_mensualidad1 + _mensualidad2 + _mensualidad3)
         self.montoProfesor = (_mensualidad1 + _mensualidad2 + _mensualidad3) / 5
         print("Registro Exitoso!")
-
+    # Se utiliza la funcion format para indicar el orden de impresion, junto con la ayuda de las {} llaves
     def incluirEvento(self, _mensualidad1, _mensualidad2, _mensualidad3):
         return ("modificacion: Mensualidad_1: {} Mensualidad_2: {} Mensualidad_3: {}".format(_mensualidad1, _mensualidad2, _mensualidad3))
 
     def entregaHistorial(self):
-        print("No. Cedula: {} - {} {}".format(self.cedula, self.nombre, self.apellido))
+        print("No. Cedula: {} - {} {} {}".format(self.cedula, self.nombre, self.apellido, self.instrumento))
 
-
+    # Lo siguiente corresponde a las opciones de menu, que se encontraria en el main. Esto se mostrara en consola
 def registrarIntegrante():
     print("Registro de Integrantes\n")
     cedula = int(input("Ingrese el numero de cedula: "))
     nombre = input("Ingrese el nombre: ")
     apellido = input("Ingrese el apellido: ")
+    instrumento = input("Ingrese el instrumento: ")
     edad = int(input("Ingrese su edad: "))
     mensualidad1 = float(input("Ingrese mensualidad 1: "))
     mensualidad2 = float(input("Ingrese mensualidad 2: "))
     mensualidad3 = float(input("Ingrese mensualidad 3: "))
-    objIntegrante = Integrantes(cedula, nombre, apellido, edad, mensualidad1, mensualidad2, mensualidad3)
+    objIntegrante = Integrantes(cedula, nombre, apellido, instrumento, edad, mensualidad1, mensualidad2, mensualidad3)
     listaIntegrantes.append(objIntegrante)
 
 def listadoIntegrantes():
-    print("Listado de Integrantes\n")
+    print("Lista de Integrantes\n")
     for objIntegrante in listaIntegrantes:
-        objIntegrante.entregarDatos()
+        objIntegrante.imprimirDatos()
 
 
 def buscarIntegrante():
@@ -103,7 +108,7 @@ def buscarIntegrante():
     cedula = int(input("Ingrese el numero de cedula a buscar: "))
     for objIntegrante in listaIntegrantes:
         if cedula == objIntegrante.cedula:
-            objIntegrante.entregarDatos()
+            objIntegrante.imprimirDatos()
 
 
 def modificarMensualidad():
@@ -115,7 +120,7 @@ def modificarMensualidad():
             mensualidad2 = float(input("Ingrese mensualidad 2: "))
             mensualidad3 = float(input("Ingrese mensualidad 3: "))
             objIntegrante.editarMensualidad(mensualidad1, mensualidad2, mensualidad3)
-            objIntegrante.entregarDatos()
+            objIntegrante.imprimirDatos()
             recepcionMensaje = objIntegrante.incluirEvento(mensualidad1, mensualidad2, mensualidad3)
             objIntegrante.historial.append(recepcionMensaje)
 
@@ -127,13 +132,13 @@ def consultarHistorial():
         if cedula == objIntegrante.cedula:
             for recepcionMensaje in objIntegrante.historial:
                 print("Evento: {}".format(recepcionMensaje))
-
+    # Opcion de salida del menu, aunque hay otra opcion de responder no
 def salir():
     print("Has elegido finalizar, muchas gracias. ")
     exit()
 
 def main():
-
+    # Bienvenida
     os.system('cls' if os.name == 'nt' else'clear')
     # Bienvenida a los profesores de la Banda Municipal de Acosta
     print("____________________________________________________________________________")
@@ -175,6 +180,7 @@ def main():
     ]
     print(sorted(profes, key=lambda profe: profe[1]))
     os.system('cls' if os.name == 'nt' else 'clear')
+    # Lo siguiente se repetira siempre y cuando el usuario indique que si desea regresar al menu
     while True:
         print("A continuacion se le solicita que ingrese algunos datos de los estudiantes")
         print("Por favor selecciona alguna de las siguientes opciones")
@@ -205,6 +211,7 @@ def main():
             consultarHistorial()
         elif opcion == 6:
             salir()
+        # Pregunta si se desea volver al menu
         i = input("\nDesea volver al menu principal (s/n). Si elige NO se le mostrara informacion de cursos BMA")
         if i == 'n' or i == 'N':
             break
