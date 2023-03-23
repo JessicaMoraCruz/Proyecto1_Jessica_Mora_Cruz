@@ -1,4 +1,49 @@
+import random
 import os
+class InformacionBandaMunicipalAcosta:
+
+    def __init__(self, BMA_cursos=None):
+        """ Cursos Banda Municipal de Acosta """
+        self.BMA_cursos = BMA_cursos
+    def programa_De_Cursos_BMA(self):
+        """Crea y muestra cursos usando el metodo: abstract factory"""
+        programa = self.BMA_cursos()
+        print("Necesita guia sobre cursos:  {} de la BMA?".format(programa))
+        print("Su duracion es de  {} ".format(programa.tiempo()))
+        print("Su precio sería {}".format(programa.precio()))
+        print('\n')
+
+class Basicos:
+    """ Clase de solfeo ritmico"""
+    def tiempo(self):
+        return "Un mes"
+    def precio(self):
+        return "15000"
+    def __str__(self):
+        return "Basico"
+
+class Medios:
+    """ Clase de solfeo melodico"""
+    def tiempo(self):
+        return "Un mes"
+    def precio(self):
+        return "25000"
+    def __str__(self):
+        return "Medio"
+
+class Premium:
+    """ Clase solfeo ritmico melodico y ejecucion de instrumento"""
+    def tiempo(self):
+        return "Tres meses"
+    def precio(self):
+        return "50000"
+    def __str__(self):
+        return "Premium"
+
+def programa_aleatorio():
+    """ Se brindara informacion aleatoria para los usuarios"""
+    return random.choice([Basicos, Medios, Premium])()
+
 listaIntegrantes=[]
 
 
@@ -12,16 +57,20 @@ class Integrantes:
         self.mensualidad2 = _mensualidad2
         self.mensualidad3 = _mensualidad3
         self.mensualidadFinal = (_mensualidad1 + _mensualidad2 + _mensualidad3)
+        # A continuacion se calcula el monto que le va a corresponder a cada profesor
+        # por las mensualidades pagadas por este estudiante
+        self.montoProfesor = (_mensualidad1 + _mensualidad2 + _mensualidad3) / 5
         self.historial = []
 
     def entregarDatos(self):
-        print("No. Cedula: {} - {} {} - Mensualidad Final: {}".format(self.cedula, self.nombre, self.apellido, self.mensualidadFinal))
+        print("No. Cedula: {} - {} {} - Mensualidad Final: {} - Monto a Profesor: {}".format(self.cedula, self.nombre, self.apellido, self.mensualidadFinal, self.montoProfesor))
 
     def editarMensualidad(self, _mensualidad1, _mensualidad2, _mensualidad3):
         self.mensualidad1 = _mensualidad1
         self.mensualidad2 = _mensualidad2
         self.mensualidad3 = _mensualidad3
         self.mensualidadFinal = (_mensualidad1 + _mensualidad2 + _mensualidad3)
+        self.montoProfesor = (_mensualidad1 + _mensualidad2 + _mensualidad3) / 5
         print("Registro Exitoso!")
 
     def incluirEvento(self, _mensualidad1, _mensualidad2, _mensualidad3):
@@ -156,13 +205,15 @@ def main():
             consultarHistorial()
         elif opcion == 6:
             salir()
-        i = input("\nDesea volver al menu principal s/n: ")
+        i = input("\nDesea volver al menu principal (s/n). Si elige NO se le mostrara informacion de cursos BMA")
         if i == 'n' or i == 'N':
             break
 
 
 if __name__ == "__main__":
     main()
-
+    programa = InformacionBandaMunicipalAcosta(programa_aleatorio)
+    for i in range(5):
+        programa.programa_De_Cursos_BMA()
 
 
